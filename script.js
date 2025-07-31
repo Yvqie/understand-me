@@ -1,6 +1,5 @@
+// 问题数组，确保无嵌套问题
 const questions = [
-  {
-    const questions = [
   {
     question: "我最怕你做下面哪个动作？",
     options: [
@@ -65,7 +64,7 @@ const questions = [
     ]
   },
   {
-      question: "我最令人讨厌的是哪种行为？",
+    question: "我最令人讨厌的是哪种行为？",
     options: [
       { text: "磨蹭拖延不回应", correct: true, response: "拖延症犯了，我真的很急😖" },
       { text: "突然安静不说话", correct: false, response: "安静有时候是思考，不是故意冷落🙃" },
@@ -74,7 +73,7 @@ const questions = [
     ]
   },
   {
-     question: "如果我突然变成超能力者，最想有什么能力？",
+    question: "如果我突然变成超能力者，最想有什么能力？",
     options: [
       { text: "瞬间出现在你身边", correct: true, response: "这样随时陪你，不离不弃💫" },
       { text: "读心术听心声", correct: false, response: "读心可怕，还是多听你说话安全😳" },
@@ -82,7 +81,7 @@ const questions = [
       { text: "飞天遁地逃避尴尬", correct: false, response: "尴尬时能飞走简直完美😅" }
     ]
   },
-{
+  {
     question: "你觉得我最迷人的地方是？",
     options: [
       { text: "真诚待人", correct: true, response: "真心实意最吸引人❤️" },
@@ -90,7 +89,7 @@ const questions = [
       { text: "从容", correct: false, response: "笑一笑，十年少😊" },
       { text: "努力上进", correct: false, response: "有目标更有魅力💪" }
     ]
-  },       
+  },
   {
     question: "如果我送你礼物，最可能是什么？",
     options: [
@@ -108,8 +107,8 @@ const questions = [
       { text: "户外运动", correct: false, response: "我运动细胞很差，怕累😅" },
       { text: "逛街购物", correct: false, response: "这个更适合你吧？🛍️" }
     ]
-  }
-{
+  },
+  {
     question: "和我聊天时你最喜欢聊什么？",
     options: [
       { text: "八卦趣事", correct: true, response: "八卦中透露我们的默契，爱了💬" },
@@ -118,7 +117,7 @@ const questions = [
       { text: "沉默陪伴", correct: true, response: "陪伴也能很有感觉，懂你😊" }
     ]
   },
- {
+  {
     question: "如果我给你发了‘...’我心里想的可能是？",
     options: [
       { text: "我不知道说啥", correct: true, response: "有时候就是不知道怎么开口🤐" },
@@ -127,7 +126,7 @@ const questions = [
       { text: "手机没电了", correct: false, response: "真心话还是手机故障？🔋" }
     ]
   },
-{
+  {
     question: "你觉得我对你最体贴的表现是？",
     options: [
       { text: "记得你喜欢的东西", correct: true, response: "细节决定一切，我很认真哦🍰" },
@@ -141,6 +140,7 @@ const questions = [
 let currentIndex = 0;
 let score = 0;
 
+// 获取 DOM 元素并检查是否存在
 const questionEl = document.getElementById("question");
 const optionsEl = document.getElementById("options");
 const responseEl = document.getElementById("response");
@@ -149,21 +149,36 @@ const quizBox = document.getElementById("quiz-box");
 const resultBox = document.getElementById("result-box");
 const resultMessage = document.getElementById("result-message");
 const restartBtn = document.getElementById("restart-btn");
+const messageForm = document.getElementById("message-form");
+const messageInput = document.getElementById("message-input");
+const thanksMsg = document.getElementById("thanks-msg");
 
+// 检查 DOM 元素是否存在
+if (!questionEl || !optionsEl || !responseEl || !nextBtn || !quizBox || !resultBox || !resultMessage || !restartBtn || !messageForm || !messageInput || !thanksMsg) {
+  console.error("某些 DOM 元素未找到，请检查 HTML 结构");
+}
+
+// 显示问题
 function showQuestion() {
+  if (!questionEl || !optionsEl || !responseEl || !nextBtn) {
+    console.error("无法显示问题：缺少必要的 DOM 元素");
+    return;
+  }
+
   const q = questions[currentIndex];
+  console.log("当前问题:", q); // 调试日志
   questionEl.innerText = q.question;
   optionsEl.innerHTML = "";
   responseEl.innerText = "";
 
   q.options.forEach((opt, i) => {
+    console.log("生成选项:", opt.text); // 调试日志
     const btn = document.createElement("button");
     btn.className = "option-btn";
     btn.innerText = opt.text;
     btn.onclick = () => {
       responseEl.innerText = opt.response;
       if (opt.correct) score++;
-      // 禁用所有按钮防止刷分
       Array.from(document.querySelectorAll(".option-btn")).forEach(b => b.disabled = true);
       nextBtn.disabled = false;
     };
@@ -173,6 +188,7 @@ function showQuestion() {
   nextBtn.disabled = true;
 }
 
+// 下一题
 function nextQuestion() {
   if (nextBtn.disabled) {
     alert("请先选择一个答案！");
@@ -186,7 +202,13 @@ function nextQuestion() {
   }
 }
 
+// 显示结果
 function showResult() {
+  if (!quizBox || !resultBox || !resultMessage) {
+    console.error("无法显示结果：缺少必要的 DOM 元素");
+    return;
+  }
+
   quizBox.style.display = "none";
   resultBox.style.display = "block";
 
@@ -208,37 +230,46 @@ function showResult() {
 function restartGame() {
   score = 0;
   currentIndex = 0;
-  quizBox.style.display = "block";
-  resultBox.style.display = "none";
+  if (quizBox && resultBox) {
+    quizBox.style.display = "block";
+    resultBox.style.display = "none";
+  }
   nextBtn.disabled = true;
   showQuestion();
 }
 
 // 绑定事件
-nextBtn.addEventListener("click", nextQuestion);
-restartBtn.addEventListener("click", restartGame);
+if (nextBtn) {
+  nextBtn.addEventListener("click", nextQuestion);
+}
+if (restartBtn) {
+  restartBtn.addEventListener("click", restartGame);
+}
 
 // 留言功能
-const messageForm = document.getElementById("message-form");
-const messageInput = document.getElementById("message-input");
-const thanksMsg = document.getElementById("thanks-msg");
-
-messageForm.addEventListener("submit", e => {
-  e.preventDefault();
-  const val = messageInput.value.trim();
-  if (val.length === 0) return;
-  localStorage.setItem("message", val);
-  messageInput.value = "";
-  thanksMsg.style.display = "block";
-});
+if (messageForm && messageInput && thanksMsg) {
+  messageForm.addEventListener("submit", e => {
+    e.preventDefault();
+    const val = messageInput.value.trim();
+    if (val.length === 0) return;
+    localStorage.setItem("message", val);
+    messageInput.value = "";
+    thanksMsg.style.display = "block";
+  });
+}
 
 // 页面初始化
-if (localStorage.getItem("passed") === "yes") {
-  // 如果之前通关过，直接显示结果和留言
-  quizBox.style.display = "none";
-  resultBox.style.display = "block";
-  resultMessage.innerText = "🎉 你之前已经通关啦！欢迎留言～";
-  document.getElementById("message-box").style.display = "block";
-} else {
-  showQuestion();
-}
+document.addEventListener("DOMContentLoaded", () => {
+  if (localStorage.getItem("passed") === "yes") {
+    if (quizBox && resultBox && resultMessage && document.getElementById("message-box")) {
+      quizBox.style.display = "none";
+      resultBox.style.display = "block";
+      resultMessage.innerText = "🎉 你之前已经通关啦！欢迎留言～";
+      document.getElementById("message-box").style.display = "block";
+    } else {
+      console.error("初始化失败：缺少 message-box 或其他 DOM 元素");
+    }
+  } else {
+    showQuestion();
+  }
+});
