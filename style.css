@@ -7,6 +7,37 @@ body {
   justify-content: center;
   padding: 1rem;
   min-height: 100vh;
+  position: relative; /* 为伪元素定位提供上下文 */
+  overflow-x: hidden; /* 防止 emoji 溢出 */
+}
+
+/* 添加背景 emoji 装饰 */
+body::before, body::after {
+  content: "😊🎉"; /* 可替换为其他 emoji，如 🌟😺 */
+  position: absolute;
+  font-size: 2rem; /* emoji 大小 */
+  opacity: 0.2; /* 透明度，保持背景不突兀 */
+  pointer-events: none; /* 防止交互干扰 */
+  z-index: -1; /* 放在内容后面 */
+}
+
+body::before {
+  top: 10%;
+  left: 5%;
+  transform: rotate(-15deg); /* 稍微倾斜，增加趣味性 */
+}
+
+body::after {
+  bottom: 15%;
+  right: 5%;
+  transform: rotate(10deg); /* 不同角度，营造随机感 */
+}
+
+/* 响应式调整：小屏幕上减小 emoji 大小 */
+@media (max-width: 600px) {
+  body::before, body::after {
+    font-size: 1.5rem;
+  }
 }
 
 .container {
