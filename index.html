@@ -1,24 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh">
 <head>
   <meta charset="UTF-8" />
-  <title>你到底懂不懂我</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Undersantand me？</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1>你到底懂不懂我 🤔</h1>
-    <div id="quiz-box">
-      <h2 id="question"></h2>
-      <div id="options"></div>
-      <p id="response"></p>
-      <button id="next-btn" onclick="nextQuestion()">下一题</button>
+    <h1>🎯 你是不是懂我？</h1>
+    <div id="game">
+      <p id="question">加载中...</p>
+      <div id="choices"></div>
+      <p id="result"></p>
     </div>
-    <div id="result-box" style="display:none;">
-      <h2 id="result-message"></h2>
-      <button onclick="restartGame()">再玩一次</button>
+
+    <div id="form-area" style="display:none;">
+      <h2>📝 留下你的想法</h2>
+      <form id="messageForm">
+        <textarea id="message" placeholder="写点什么吧..." required></textarea>
+        <button type="submit">发送 💌</button>
+      </form>
+      <p id="thanks" style="display:none;">✅ 收到啦！</p>
     </div>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>
