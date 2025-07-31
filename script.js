@@ -105,7 +105,7 @@ const questions = [
       { text: "一起聊天", correct: true, response: "聊聊聊一直能聊🍳❤️" },
       { text: "去看电影", correct: false, response: "也喜欢，但没那么特别🎥" },
       { text: "户外运动", correct: false, response: "我运动细胞很差，怕累😅" },
-      { text: "逛街购物", correct: false, response: "这个更适合你吧？🛍️" }
+      { text: "逛街购物", correct: true, response: "这个更适合你吧？🛍️" }
     ]
   },
   {
