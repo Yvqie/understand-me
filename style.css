@@ -1,22 +1,26 @@
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
-  background: #f9f9f9;
   margin: 0;
-  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Segoe UI", sans-serif;
+  background: #f2f2f7;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  min-height: 100vh;
 }
 
 .container {
   max-width: 480px;
-  margin: 2rem auto;
-  padding: 1.5rem;
   background: white;
+  padding: 1.5rem;
   border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  width: 100%;
 }
 
 h1, h2 {
   text-align: center;
-  color: #333;
+  margin-bottom: 1rem;
 }
 
 #question {
@@ -24,33 +28,57 @@ h1, h2 {
   margin-bottom: 1rem;
 }
 
-button {
+#options button {
+  display: block;
+  width: 100%;
+  margin-bottom: 0.6rem;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  background: #fafafa;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#options button:hover:not(:disabled) {
+  background: #d0e7ff;
+}
+
+#options button:disabled {
+  background: #eee;
+  cursor: default;
+  color: #999;
+}
+
+.response {
+  font-weight: 600;
+  margin-top: 0.6rem;
+  text-align: center;
+}
+
+button#next-btn, button#restart-btn, #message-form button {
   background: #007aff;
   color: white;
   border: none;
-  padding: 0.6rem 1.2rem;
   border-radius: 12px;
+  padding: 0.7rem 1.2rem;
   font-size: 1rem;
-  margin-top: 1rem;
   cursor: pointer;
-}
-
-button:hover {
-  background: #005fcc;
-}
-
-#choices button {
-  display: block;
+  margin-top: 1rem;
   width: 100%;
-  margin-bottom: 0.5rem;
+  transition: background 0.3s;
+}
+
+button#next-btn:hover, button#restart-btn:hover, #message-form button:hover {
+  background: #005fcc;
 }
 
 textarea {
   width: 100%;
   padding: 0.8rem;
   font-size: 1rem;
-  border: 1px solid #ccc;
   border-radius: 12px;
+  border: 1px solid #ccc;
   resize: none;
-  margin-top: 0.5rem;
 }
