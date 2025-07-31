@@ -85,52 +85,58 @@ const questions = [
 let currentIndex = 0;
 let score = 0;
 
+const questionEl = document.getElementById("question");
+const optionsEl = document.getElementById("options");
+const responseEl = document.getElementById("response");
+const nextBtn = document.getElementById("next-btn");
+const quizBox = document.getElementById("quiz-box");
+const resultBox = document.getElementById("result-box");
+const resultMessage = document.getElementById("result-message");
+const restartBtn = document.getElementById("restart-btn");
+
 function showQuestion() {
   const q = questions[currentIndex];
-  document.getElementById("question").innerText = q.question;
-  const optionsBox = document.getElementById("options");
-  optionsBox.innerHTML = "";
-  document.getElementById("response").innerText = "";
+  questionEl.innerText = q.question;
+  optionsEl.innerHTML = "";
+  responseEl.innerText = "";
 
-  q.options.forEach((opt) => {
+  q.options.forEach((opt, i) => {
     const btn = document.createElement("button");
     btn.className = "option-btn";
     btn.innerText = opt.text;
     btn.onclick = () => {
-      document.getElementById("response").innerText = opt.response;
-      if (opt.correct) score += 1;
-      // 选过后禁用所有选项，避免刷分
-      document.querySelectorAll(".option-btn").forEach(b => b.disabled = true);
+      responseEl.innerText = opt.response;
+      if (opt.correct) score++;
+      // 禁用所有按钮防止刷分
+      Array.from(document.querySelectorAll(".option-btn")).forEach(b => b.disabled = true);
+      nextBtn.disabled = false;
     };
-    optionsBox.appendChild(btn);
+    optionsEl.appendChild(btn);
   });
+
+  nextBtn.disabled = true;
 }
 
 function nextQuestion() {
-  if (document.querySelectorAll(".option-btn").length > 0) {
-    // 如果还没选答案，不允许跳过
-    const disabledBtns = Array.from(document.querySelectorAll(".option-btn")).filter(b => b.disabled);
-    if (disabledBtns.length === 0) {
-      alert("先选一个答案再下一题哦！");
-      return;
-    }
+  if (nextBtn.disabled) {
+    alert("请先选择一个答案！");
+    return;
   }
-  
   currentIndex++;
-  if (currentIndex < questions.length) {
-    showQuestion();
-  } else {
+  if (currentIndex >= questions.length) {
     showResult();
+  } else {
+    showQuestion();
   }
 }
 
 function showResult() {
-  document.getElementById("quiz-box").style.display = "none";
-  document.getElementById("result-box").style.display = "block";
+  quizBox.style.display = "none";
+  resultBox.style.display = "block";
 
   let msg = "";
   if (score === questions.length) {
-    msg = "你太懂我了，我是不是藏得不够好？🥹";
+    msg = "🎉 你太懂我了，我是不是藏得不够好？🥹";
   } else if (score >= questions.length * 0.7) {
     msg = "你懂得挺多的，继续努力！😉";
   } else if (score >= questions.length * 0.4) {
@@ -138,17 +144,45 @@ function showResult() {
   } else {
     msg = "你对我一无所知！不过可以从今天开始了解我 ❤️";
   }
-
-  document.getElementById("result-message").innerText = msg;
+  resultMessage.innerText = msg;
+  localStorage.setItem("passed", score === questions.length ? "yes" : "no");
 }
 
+// 重新开始
 function restartGame() {
   score = 0;
   currentIndex = 0;
-  document.getElementById("quiz-box").style.display = "block";
-  document.getElementById("result-box").style.display = "none";
+  quizBox.style.display = "block";
+  resultBox.style.display = "none";
+  nextBtn.disabled = true;
   showQuestion();
 }
 
-// 初始化第一题
-showQuestion();
+// 绑定事件
+nextBtn.addEventListener("click", nextQuestion);
+restartBtn.addEventListener("click", restartGame);
+
+// 留言功能
+const messageForm = document.getElementById("message-form");
+const messageInput = document.getElementById("message-input");
+const thanksMsg = document.getElementById("thanks-msg");
+
+messageForm.addEventListener("submit", e => {
+  e.preventDefault();
+  const val = messageInput.value.trim();
+  if (val.length === 0) return;
+  localStorage.setItem("message", val);
+  messageInput.value = "";
+  thanksMsg.style.display = "block";
+});
+
+// 页面初始化
+if (localStorage.getItem("passed") === "yes") {
+  // 如果之前通关过，直接显示结果和留言
+  quizBox.style.display = "none";
+  resultBox.style.display = "block";
+  resultMessage.innerText = "🎉 你之前已经通关啦！欢迎留言～";
+  document.getElementById("message-box").style.display = "block";
+} else {
+  showQuestion();
+}
