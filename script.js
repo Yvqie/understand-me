@@ -213,7 +213,7 @@ function showResult() {
   resultBox.style.display = "block";
 
   let msg = "";
-  if (score === questions.length) {
+  if (score >= questions.length * 0.8) {
     msg = "🎉 你太懂我了，我是不是藏得不够好？🥹";
   } else if (score >= questions.length * 0.7) {
     msg = "你懂得挺多的，继续努力！😉";
