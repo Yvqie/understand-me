@@ -136,7 +136,6 @@ const questions = [
       { text: "帮你解决烦恼", correct: false, response: "当你的超级助攻🦸" }
     ]
   }
-
 ];
 
 let currentIndex = 0;
