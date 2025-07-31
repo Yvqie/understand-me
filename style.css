@@ -1,8 +1,8 @@
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Segoe UI", sans-serif;
-  background: #f2f2f7;
-  color: #333;
+  background: #eef2f7;
+  color: #1a1a1a;
   display: flex;
   justify-content: center;
   padding: 1rem;
@@ -11,74 +11,140 @@ body {
 
 .container {
   max-width: 480px;
-  background: white;
-  padding: 1.5rem;
-  border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  background: #fff;
+  padding: 2rem 1.5rem 3rem 1.5rem;
+  border-radius: 24px;
+  box-shadow: 0 12px 40px rgba(50, 50, 93, 0.1);
   width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 h1, h2 {
   text-align: center;
   margin-bottom: 1rem;
+  color: #334e68;
+  font-weight: 700;
 }
 
 #question {
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  margin-bottom: 1.2rem;
+  color: #2c3e50;
+  font-weight: 600;
+  text-align: center;
+  min-height: 54px;
 }
 
 #options button {
   display: block;
   width: 100%;
-  margin-bottom: 0.6rem;
-  padding: 0.6rem 1rem;
-  font-size: 1rem;
-  border-radius: 12px;
-  border: 1px solid #ccc;
-  background: #fafafa;
+  margin-bottom: 0.7rem;
+  padding: 0.75rem 1.2rem;
+  font-size: 1.05rem;
+  border-radius: 14px;
+  border: 1.5px solid #4a90e2;
+  background: #f5faff;
+  color: #2a3a5d;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background-color 0.25s, color 0.25s, border-color 0.25s;
 }
 
 #options button:hover:not(:disabled) {
-  background: #d0e7ff;
+  background: #4a90e2;
+  color: white;
+  border-color: #357ABD;
 }
 
 #options button:disabled {
-  background: #eee;
+  background: #d1d9e6;
   cursor: default;
-  color: #999;
+  color: #7f8fa6;
+  border-color: #a9b7d6;
 }
 
 .response {
   font-weight: 600;
-  margin-top: 0.6rem;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
   text-align: center;
+  min-height: 28px;
+  color: #3b5998;
+  font-style: italic;
 }
 
 button#next-btn, button#restart-btn, #message-form button {
-  background: #007aff;
+  background: #357ABD;
   color: white;
   border: none;
-  border-radius: 12px;
-  padding: 0.7rem 1.2rem;
-  font-size: 1rem;
+  border-radius: 18px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1.1rem;
   cursor: pointer;
-  margin-top: 1rem;
+  margin-top: 1.3rem;
   width: 100%;
-  transition: background 0.3s;
+  box-shadow: 0 5px 15px rgba(53, 122, 189, 0.35);
+  transition: background-color 0.3s;
+  font-weight: 600;
 }
 
 button#next-btn:hover, button#restart-btn:hover, #message-form button:hover {
-  background: #005fcc;
+  background: #255a9c;
 }
 
 textarea {
   width: 100%;
-  padding: 0.8rem;
+  padding: 1rem 1.2rem;
   font-size: 1rem;
-  border-radius: 12px;
-  border: 1px solid #ccc;
-  resize: none;
+  border-radius: 18px;
+  border: 1.7px solid #ced9eb;
+  resize: vertical;
+  min-height: 70px;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Segoe UI", sans-serif;
+  color: #2a3a5d;
+  transition: border-color 0.3s;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #4a90e2;
+  background: #f0f6ff;
+}
+
+#message-box {
+  width: 100%;
+  margin-top: 2.5rem;
+}
+
+#thanks-msg {
+  margin-top: 0.6rem;
+  font-weight: 600;
+  text-align: center;
+  color: #3c763d;
+}
+
+#game-history {
+  margin-top: 2rem;
+  width: 100%;
+  background: #f0f4fb;
+  border-radius: 18px;
+  padding: 1rem 1.2rem;
+  color: #4a5a7a;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+@media (max-width: 400px) {
+  .container {
+    padding: 1.2rem 1rem 2rem 1rem;
+  }
+
+  button#next-btn, button#restart-btn, #message-form button {
+    font-size: 1rem;
+    padding: 0.7rem 1rem;
+  }
 }
