@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>你到底懂不懂我</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>你到底懂不懂我 🤔</h1>
+    <div id="quiz-box">
+      <h2 id="question"></h2>
+      <div id="options"></div>
+      <p id="response"></p>
+      <button id="next-btn" onclick="nextQuestion()">下一题</button>
+    </div>
+    <div id="result-box" style="display:none;">
+      <h2 id="result-message"></h2>
+      <button onclick="restartGame()">再玩一次</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
