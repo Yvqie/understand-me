@@ -11,38 +11,72 @@ body {
   overflow-x: hidden; /* 防止 emoji 溢出 */
 }
 
-/* 添加背景 emoji 装饰 */
-body::before, body::after {
-  content: "😊🎉"; /* 可替换为其他 emoji，如 🌟😺 */
+/* 背景添加多个 emoji 装饰 */
+body::before, body::after, body > .emoji-deco-1::before, body > .emoji-deco-2::after, body > .emoji-deco-3::before {
   position: absolute;
-  font-size: 2rem; /* emoji 大小 */
-  opacity: 0.2; /* 透明度，保持背景不突兀 */
+  font-size: 2.5rem; /* 稍大一点，增加趣味 */
+  opacity: 0.15; /* 透明度，保持背景清淡 */
   pointer-events: none; /* 防止交互干扰 */
   z-index: -1; /* 放在内容后面 */
+  animation: float 5s ease-in-out infinite; /* 添加漂浮动画 */
 }
 
+/* 不同位置的 emoji */
 body::before {
-  top: 10%;
-  left: 5%;
-  transform: rotate(-15deg); /* 稍微倾斜，增加趣味性 */
+  content: "😊🎉";
+  top: 5%;
+  left: 10%;
+  transform: rotate(-10deg);
 }
 
 body::after {
-  bottom: 15%;
-  right: 5%;
-  transform: rotate(10deg); /* 不同角度，营造随机感 */
+  content: "🌟😺";
+  bottom: 10%;
+  right: 8%;
+  transform: rotate(15deg);
+  animation-delay: 1s; /* 动画延迟，错开节奏 */
 }
 
-/* 响应式调整：小屏幕上减小 emoji 大小 */
+body > .emoji-deco-1::before {
+  content: "💖🚀";
+  top: 20%;
+  right: 15%;
+  transform: rotate(-20deg);
+  animation-delay: 2s;
+}
+
+body > .emoji-deco-2::after {
+  content: "🎈🍓";
+  bottom: 25%;
+  left: 12%;
+  transform: rotate(10deg);
+  animation-delay: 3s;
+}
+
+body > .emoji-deco-3::before {
+  content: "😸🌈";
+  top: 35%;
+  left: 20%;
+  transform: rotate(-5deg);
+  animation-delay: 4s;
+}
+
+/* 漂浮动画 */
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(var(--rotate)); }
+  50% { transform: translateY(-15px) rotate(var(--rotate)); }
+}
+
+/* 响应式调整：小屏幕上减小 emoji */
 @media (max-width: 600px) {
-  body::before, body::after {
-    font-size: 1.5rem;
+  body::before, body::after, body > .emoji-deco-1::before, body > .emoji-deco-2::after, body > .emoji-deco-3::before {
+    font-size: 1.8rem;
   }
 }
 
 .container {
   max-width: 480px;
-  background: #fff;
+  background: linear-gradient(135deg, #ffffff, #f9fcff); /* 添加轻微渐变背景 */
   padding: 2rem 1.5rem 3rem 1.5rem;
   border-radius: 24px;
   box-shadow: 0 12px 40px rgba(50, 50, 93, 0.1);
@@ -51,15 +85,43 @@ body::after {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative; /* 为答题界面的装饰提供上下文 */
+  border: 2px solid #e6f0ff; /* 添加浅蓝色边框 */
 }
 
-h1, h2 {
-  text-align: center;
-  margin-bottom: 1rem;
-  color: #334e68;
-  font-weight: 700;
+/* 答题界面装饰：添加角落 emoji */
+.container::before, .container::after {
+  content: "✨";
+  position: absolute;
+  font-size: 1.5rem;
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 1;
 }
 
+.container::before {
+  top: 10px;
+  left: 10px;
+  transform: rotate(-15deg);
+}
+
+.container::after {
+  bottom: 10px;
+  right: 10px;
+  transform: rotate(15deg);
+}
+
+/* 答题区域装饰 */
+#quiz-box {
+  position: relative;
+  padding: 1.5rem;
+  border-radius: 18px;
+  background: #f0f6ff; /* 浅蓝色背景 */
+  box-shadow: 0 5px 15px rgba(74, 144, 226, 0.1); /* 轻微阴影 */
+  width: 100%;
+}
+
+/* 题目装饰：添加下划线效果 */
 #question {
   font-size: 1.3rem;
   margin-bottom: 1.2rem;
@@ -67,8 +129,20 @@ h1, h2 {
   font-weight: 600;
   text-align: center;
   min-height: 54px;
+  position: relative;
 }
 
+#question::after {
+  content: "🌈";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1rem;
+  opacity: 0.4;
+}
+
+/* 选项按钮样式 */
 #options button {
   display: block;
   width: 100%;
@@ -80,20 +154,41 @@ h1, h2 {
   background: #f5faff;
   color: #2a3a5d;
   cursor: pointer;
-  transition: background-color 0.25s, color 0.25s, border-color 0.25s;
+  transition: background-color 0.25s, color 0.25s, border-color 0.25s, transform 0.2s;
+  position: relative;
+  overflow: hidden;
 }
 
+/* 选项按钮悬停效果 */
 #options button:hover:not(:disabled) {
   background: #4a90e2;
   color: white;
   border-color: #357ABD;
+  transform: scale(1.02); /* 轻微放大 */
 }
 
+/* 禁用状态 */
 #options button:disabled {
   background: #d1d9e6;
   cursor: default;
   color: #7f8fa6;
   border-color: #a9b7d6;
+}
+
+/* 选项按钮装饰：添加小 emoji */
+#options button::before {
+  content: "😉";
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.9rem;
+  opacity: 0.2;
+  transition: opacity 0.3s;
+}
+
+#options button:hover::before {
+  opacity: 0.4;
 }
 
 .response {
@@ -104,6 +199,17 @@ h1, h2 {
   min-height: 28px;
   color: #3b5998;
   font-style: italic;
+  position: relative;
+}
+
+.response::before {
+  content: "💬";
+  position: absolute;
+  left: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  opacity: 0.3;
 }
 
 button#next-btn, button#restart-btn, #message-form button {
@@ -117,12 +223,25 @@ button#next-btn, button#restart-btn, #message-form button {
   margin-top: 1.3rem;
   width: 100%;
   box-shadow: 0 5px 15px rgba(53, 122, 189, 0.35);
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.2s;
   font-weight: 600;
+  position: relative;
 }
 
 button#next-btn:hover, button#restart-btn:hover, #message-form button:hover {
   background: #255a9c;
+  transform: scale(1.03);
+}
+
+/* 按钮装饰 */
+button#next-btn::after, button#restart-btn::after, #message-form button::after {
+  content: "🚀";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.9rem;
+  opacity: 0.5;
 }
 
 textarea {
@@ -136,7 +255,7 @@ textarea {
   box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Segoe UI", sans-serif;
   color: #2a3a5d;
-  transition: border-color 0.3s;
+  transition: border-color 0.3s, background 0.3s;
 }
 
 textarea:focus {
@@ -145,9 +264,20 @@ textarea:focus {
   background: #f0f6ff;
 }
 
+/* 留言框装饰 */
+textarea::before {
+  content: "📝";
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  font-size: 1rem;
+  opacity: 0.3;
+}
+
 #message-box {
   width: 100%;
   margin-top: 2.5rem;
+  position: relative;
 }
 
 #thanks-msg {
@@ -155,6 +285,17 @@ textarea:focus {
   font-weight: 600;
   text-align: center;
   color: #3c763d;
+  position: relative;
+}
+
+#thanks-msg::after {
+  content: "🎉";
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  opacity: 0.4;
 }
 
 #game-history {
@@ -167,6 +308,16 @@ textarea:focus {
   font-size: 0.9rem;
   box-sizing: border-box;
   user-select: none;
+  position: relative;
+}
+
+#game-history::before {
+  content: "🏆";
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 1rem;
+  opacity: 0.3;
 }
 
 @media (max-width: 400px) {
@@ -177,5 +328,13 @@ textarea:focus {
   button#next-btn, button#restart-btn, #message-form button {
     font-size: 1rem;
     padding: 0.7rem 1rem;
+  }
+
+  body::before, body::after, body > .emoji-deco-1::before, body > .emoji-deco-2::after, body > .emoji-deco-3::before {
+    font-size: 1.5rem;
+  }
+
+  .container::before, .container::after {
+    font-size: 1.2rem;
   }
 }
