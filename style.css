@@ -1,42 +1,56 @@
 body {
-  font-family: "Arial", sans-serif;
-  background: #fceaff;
-  text-align: center;
-  padding: 50px;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+  background: #f9f9f9;
+  margin: 0;
+  padding: 0;
 }
 
 .container {
-  max-width: 600px;
-  margin: auto;
+  max-width: 480px;
+  margin: 2rem auto;
+  padding: 1.5rem;
   background: white;
-  padding: 30px;
   border-radius: 20px;
-  box-shadow: 0 0 10px #ccc;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+h1, h2 {
+  text-align: center;
+  color: #333;
+}
+
+#question {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
 }
 
 button {
-  margin-top: 15px;
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #ff7eb3;
+  background: #007aff;
   color: white;
   border: none;
-  border-radius: 10px;
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  margin-top: 1rem;
   cursor: pointer;
 }
 
 button:hover {
-  background-color: #ff4c8b;
+  background: #005fcc;
 }
 
-.option-btn {
+#choices button {
   display: block;
-  margin: 10px auto;
-  width: 80%;
-  padding: 10px;
-  background-color: #ffe0f0;
-  border-radius: 10px;
-  border: 1px solid #ffb3d1;
-  cursor: pointer;
-  font-size: 15px;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+textarea {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  resize: none;
+  margin-top: 0.5rem;
 }
